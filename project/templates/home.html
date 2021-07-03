@@ -1,0 +1,27 @@
+<!-- templates/home.html -->
+{% extends "base.html" %} {% block content %}
+<br />
+<p style="height: 100px"></p>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="card">
+      <p></p>
+      <div class="container text-center bg-info" style="padding: 10px">
+        <div class="box">
+          {% with messages = get_flashed_messages() %} {% if messages %}
+          <div class="alert alert-danger" role="alert">{{ messages[0] }}</div>
+          {% endif %} {% endwith %}
+          <h3>Content of the Home Page</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
+            perferendis doloremque corrupti aperiam magni velit suscipit qui
+            quae, ea delectus, consectetur, commodi iusto ut quisquam in tenetur
+            facilis officiis aut.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
