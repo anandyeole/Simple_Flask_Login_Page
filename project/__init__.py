@@ -1,3 +1,4 @@
+# importing packages
 import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -15,14 +16,15 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 # app secret key
-app.config['SECRET_KEY'] = 'newkey'
+app.config["SECRET_KEY"] = "newkey"
 
 # connect our app with database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-    os.path.join(basedir, 'data.sqlite')
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+    basedir, "data.sqlite"
+)
 
 # don't track every database modification
-app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATION"] = False
 
 # create instance of db
 db = SQLAlchemy(app)
@@ -33,12 +35,14 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # whenever login is required and user tries to access the page redirect user to login first
-login_manager.login_view = 'auth.login'
+login_manager.login_view = "auth.login"
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return userDetails.query.get(user_id)
+
+
 ########################################################################################
 
 
@@ -61,4 +65,5 @@ class userDetails(db.Model, UserMixin):
 
 # blueprint for routes of auth
 from project.auth import auth as auth_blueprint
+
 app.register_blueprint(auth_blueprint)
