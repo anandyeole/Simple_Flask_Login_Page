@@ -25,7 +25,7 @@ Here is a diagram to provide a sense of what your project’s file structure wil
             ├── login.html    # show the login form
             ├── profile.html  # show the profile page
             ├── signup.html   # show the signup form
-            ├── 404.html      # show the invalid page
+            └── 404.html      # show the invalid page
     ├── app.py                # routes for our app and file to run app
     └── requirements.txt      # all package requirements for app
 
