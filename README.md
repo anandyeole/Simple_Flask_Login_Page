@@ -18,8 +18,7 @@ Here is a diagram to provide a sense of what your project’s file structure wil
     └── project
         ├── __init__.py       # setup our app
         ├── auth.py           # the auth routes for our app
-        ├── db.sqlite         # our database
-        ├── main.py           # the non-auth routes for our app
+        ├── data.sqlite       # our database
         └── templates
             ├── base.html     # contains common layout and links
             ├── home.html     # show the home page
