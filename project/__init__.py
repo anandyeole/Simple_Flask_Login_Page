@@ -3,8 +3,9 @@ import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, UserMixin, current_user
+from flask_login import LoginManager, login_required, UserMixin, current_user
 from flask_bcrypt import Bcrypt
+from functools import wraps
 
 
 bcrypt = Bcrypt()
@@ -52,15 +53,29 @@ class userDetails(db.Model, UserMixin):
     name = db.Column(db.String(100))
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(1000))
+    access_level = db.Column(db.String(100))
 
-    def __init__(self, email, name, password):
+    def __init__(self, email, name, password, access_level="user"):
         self.email = email
         self.name = name
+        self.access_level = access_level
         self.password = bcrypt.generate_password_hash(password=password)
 
     # check password with hashed database password
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
+
+
+# check if user has admin access if yes then pass admin as parameter
+def is_admin(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        access = "user"
+        if current_user.access_level == "admin":
+            access = "admin"
+        return func(access, *args, **kwargs)
+
+    return inner
 
 
 # blueprint for routes of auth

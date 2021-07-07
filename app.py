@@ -1,20 +1,22 @@
 # importing packages
+from os import access, name
 from flask import Flask, render_template
 from flask_login import login_required, current_user
-from project import db, app
+from project import db, app, is_admin
 
 
 # Home page Route
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template("home.html")
 
 
 # Profile page route
-@app.route('/profile')
+@app.route("/profile")
 @login_required
-def profile():
-    return render_template('profile.html', name=current_user.name)
+@is_admin
+def profile(access):
+    return render_template("profile.html", name=current_user.name, access=access)
 
 
 @app.errorhandler(404)
